@@ -36,6 +36,7 @@ export default function RadialOrbitalTimeline({
   });
   const [activeNodeId, setActiveNodeId] = useState<number | null>(null);
   const [centerExpanded, setCenterExpanded] = useState<boolean>(false);
+  const [mounted, setMounted] = useState<boolean>(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const orbitRef = useRef<HTMLDivElement>(null);
   const nodeRefs = useRef<Record<number, HTMLDivElement | null>>({});
@@ -97,6 +98,10 @@ export default function RadialOrbitalTimeline({
       return newState;
     });
   };
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     let rotationTimer: ReturnType<typeof setInterval>;
@@ -246,7 +251,7 @@ export default function RadialOrbitalTimeline({
 
           <div className="absolute w-96 h-96 rounded-full border border-white/10"></div>
 
-          {timelineData.map((item, index) => {
+          {mounted && timelineData.map((item, index) => {
             const position = calculateNodePosition(index, timelineData.length);
             const isExpanded = expandedItems[item.id];
             const isRelated = isRelatedToActive(item.id);
