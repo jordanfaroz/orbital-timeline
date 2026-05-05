@@ -1,7 +1,13 @@
 "use client";
 
 import { GraduationCap, Brain, CreditCard, BookOpen, Briefcase } from "lucide-react";
+import dynamic from "next/dynamic";
 import RadialOrbitalTimeline from "@/components/ui/radial-orbital-timeline";
+
+const AnimatedShaderBackground = dynamic(
+  () => import("@/components/ui/animated-shader-background"),
+  { ssr: false }
+);
 
 const timelineData = [
   {
@@ -67,5 +73,10 @@ const timelineData = [
 ];
 
 export default function Home() {
-  return <RadialOrbitalTimeline timelineData={timelineData} />;
+  return (
+    <>
+      <AnimatedShaderBackground />
+      <RadialOrbitalTimeline timelineData={timelineData} />
+    </>
+  );
 }
